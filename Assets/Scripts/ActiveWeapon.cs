@@ -4,16 +4,19 @@ using StarterAssets;
 public class ActiveWeapon : MonoBehaviour
 {
     [SerializeField] WeaponSO weaponSO;
-    [SerializeField] Animator animator;
 
+    Animator animator;
     StarterAssetsInputs starterAssetsInputs;
     Weapon currentWeapon;
 
     const string SHOOT_STRING = "Shoot";
 
+    float lastShootTime = 0f;
+
     void Awake()
     {
         starterAssetsInputs = GetComponentInParent<StarterAssetsInputs>();
+        animator = GetComponent<Animator>();
     }
 
     void Start()
@@ -23,16 +26,22 @@ public class ActiveWeapon : MonoBehaviour
 
     void Update()
     {
+        lastShootTime += Time.deltaTime;
         HandleShoot();
     }
 
-    private bool HandleShoot()
-    {
-        if (!starterAssetsInputs.shoot) return false;
 
-        currentWeapon.Shoot(weaponSO);
-        animator.Play(SHOOT_STRING, 0, 0f);
-        starterAssetsInputs.ShootInput(false);
-        return true;
+    void HandleShoot()
+    {
+        if (!starterAssetsInputs.shoot) return;
+
+        if (lastShootTime >= weaponSO.FireRate)
+            {
+                currentWeapon.Shoot(weaponSO);
+                animator.Play(SHOOT_STRING, 0, 0f);
+                lastShootTime = 0f;
+            }
+            
+         starterAssetsInputs.ShootInput(false);
     }
 }
