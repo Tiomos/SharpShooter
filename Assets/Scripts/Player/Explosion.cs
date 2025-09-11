@@ -18,7 +18,6 @@ public class Explosion : MonoBehaviour
 
         foreach (Collider nearbyObject in colliders)
         {
-            Debug.Log("Nearby object: " + nearbyObject.name);
             PlayerHealth playerHealth = nearbyObject.GetComponent<PlayerHealth>();
 
             if (playerHealth == null) continue;
