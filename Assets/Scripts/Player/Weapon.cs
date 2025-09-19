@@ -1,5 +1,3 @@
-using StarterAssets;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour

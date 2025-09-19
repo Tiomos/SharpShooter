@@ -1,8 +1,6 @@
 using UnityEngine;
 using StarterAssets;
-using Unity.VisualScripting;
 using Cinemachine;
-using System;
 using TMPro;
 
 public class ActiveWeapon : MonoBehaviour
